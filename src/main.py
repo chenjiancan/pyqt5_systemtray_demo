@@ -11,6 +11,9 @@ from PyQt5.QtCore import QTimer, pyqtSignal
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QAction, QDialog, QCheckBox
 
+from src.rc.rc_img import *
+from src.ui.ui_main_window import Ui_Dialog
+
 
 class SystemTrayIcon(QSystemTrayIcon):
     show_window = pyqtSignal()  # show action
@@ -46,7 +49,9 @@ class SystemTrayIcon(QSystemTrayIcon):
         self.sub_menu = QMenu()
         action_setting_setting1 = QAction(self)
         action_setting_setting1.setText("sub setting")
-        action_setting_setting1.setIcon(QIcon("../res/glyphicons-281-settings.png"))
+        # action_setting_setting1.setIcon(QIcon("../res/glyphicons-281-settings.png"))
+        action_setting_setting1.setIcon(QIcon(":/img/about"))
+
         self.sub_menu.addAction(action_setting_setting1)
         action_setting.setMenu(self.sub_menu)
 
@@ -97,13 +102,13 @@ class SystemTrayIcon(QSystemTrayIcon):
         QTimer.singleShot(1000, self.welcome)
 
 
-class MainWindow(QDialog):
+class MainWindow(QDialog, Ui_Dialog):
 
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
-        self.checkbox = QCheckBox("show tray?", self)
-        self.checkbox.setChecked(True)
-        self.checkbox.show()
+        self.setupUi(self)
+        self.checkBoxIsShowTray.setChecked(True)
+        self.checkBoxIsShowTray.show()
 
         self.system_tray = SystemTrayIcon(self)
         self.system_tray.show()
@@ -111,7 +116,7 @@ class MainWindow(QDialog):
         # signal & slot
         self.system_tray.show_window.connect(self.showMaximized)
         self.system_tray.quit.connect(self.close)
-        self.checkbox.toggled.connect(lambda show: self.system_tray.show() if show else self.system_tray.hide())
+        self.checkBoxIsShowTray.toggled.connect(lambda show: self.system_tray.show() if show else self.system_tray.hide())
 
     def showNormal1(self):
         print("showNormal1")

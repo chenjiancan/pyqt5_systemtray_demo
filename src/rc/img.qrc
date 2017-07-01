@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="img/">
+    <file alias="about">glyphicons-195-question-sign.png</file>
+    <file alias="settings">glyphicons-281-settings.png</file>
+    <file alias="exit">glyphicons-389-exit.png</file>
+    <file alias="logo">glyphicons-social-26-quora.png</file>
+  </qresource>
+</RCC>
